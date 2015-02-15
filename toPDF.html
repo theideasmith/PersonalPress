@@ -8,7 +8,7 @@
 }
 
 .newspaper-head {
-  height:200px;
+  height:100px;
   width:100%;
   margin-bottom: 30px;
   border-bottom: black 5px solid;
@@ -22,8 +22,8 @@
    font-weight: bold;
    font-size: .8em;
 }
-.head {
-  height:100%;
+.head-top {
+  height:100px;
   display: inline-block;
 }
 
@@ -32,6 +32,7 @@
   margin-left: 20px;
 }
 
+
 #headcenter {
   position: relative;
   margin-left:auto;
@@ -39,7 +40,7 @@
   display:block;
   width:100%;
   text-align:center;
-  margin-bottom: -100px;
+  /*margin-bottom: -100px;*/
 }
 
 #headright {
@@ -47,9 +48,25 @@
   margin-right: 20px;
 }
 
-
-table {
-  border-spacing: 5px;
+#stocks {
+  margin-top:20px;
+  margin-bottom:20px;
+    height:30px;
+}
+#stock {
+  height:30px;
+  display: inline-block;
+  float:left;
+}
+#stock-data {
+  display: inline-block;
+}
+.first-article {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    width:100%;
+    height:auto;    
 }
 .content {
     width:45%;
@@ -113,22 +130,47 @@ table {
 <body>
 
 <div class = "newspaper-head">
-  <div class = "head" id = "headcenter">
-    <p style = "font-size:7em" id ="title">Personal Post</p>
+  <div class = "head-top" id = "headcenter">
+    <p style = "font-size:5em; margin-bottom: -90px" id ="title">Personal Post</p>
   </div>
   <div class = "head" id ="headleft">
     <p id = "date" class="weather-key">Sunday, February 15th, 2015</p>
   </div>
 
   <div class = "head" id = "headright">
-    <p class="weather weather-key"> 19.02&deg - 16.31&deg.</p>
-    <p class="weather weather-key"> Humidity: 100 </p> 
+    <p class="weather weather-key"> 17.98&deg - 17.75&deg.</p>
+    <p class="weather weather-key"> Humidity: 100 </p>
   </div>
+
+<!--   <div class="stocks">
+      <div class="stock">
+        <p class="stock-data" style="font-weight:bold"></p>
+          <div class="stock-data stock-change-down">+0.78</div>
+      </div>
+      <div class="stock">
+        <p class="stock-data" style="font-weight:bold"></p>
+          <div class="stock-data stock-change-down">+0.19</div>
+      </div>
+      <div class="stock">
+        <p class="stock-data" style="font-weight:bold"></p>
+          <div class="stock-data stock-change-down">+0.62</div>
+      </div>
+      <div class="stock">
+        <p class="stock-data" style="font-weight:bold"></p>
+          <div class="stock-data stock-change-up">+1.88</div>
+      </div>
+      <div class="stock">
+        <p class="stock-data" style="font-weight:bold"></p>
+          <div class="stock-data stock-change-down">N/A</div>
+      </div>
+  </div> -->
 </div>
 
 
 
 <div class = "newspaper-body">
+
+
 
   <div class ="content" id="content-left">
 

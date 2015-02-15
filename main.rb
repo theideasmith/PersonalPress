@@ -147,10 +147,10 @@ Tilt.prefer Tilt::ErubisTemplate
 template = Tilt.new('./templates/article.html.erb', :escape_html => false)
 
 
-@stock_data = assemble_stocks_quotes ["NASDAQ","AAPL","IBM", "DJI"]
+@stock_data = assemble_stocks_quotes ["MSFT",  "HPQ","AAPL","IBM", "DJI"]
+puts @stock_data
 @today = assemble_date
 @weather = assemble_weather
-
 puts @weather.inspect
 
 
