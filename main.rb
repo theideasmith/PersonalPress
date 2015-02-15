@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'bundler'
 require 'ostruct'
-require 'erubis'
-
-JSON_FILE = "./article.json"
+require 'time'
+ require 'date'
+JSON_FILE = "./information.json"
 
 
 
@@ -55,7 +55,7 @@ class DataGenerator
         item = data
         @news <<item
     end
-    capture_news_elements @news
+    # capture_news_elements @news #Because the engine already captures the images. No need to download them on my own
     index = 1
     @news.each do |item|
       hash = {}
@@ -76,11 +76,82 @@ class DataGenerator
 end
 
 
+def assemble_weather 
+
+
+  num_days = 1
+  location = "New York"
+
+  geocode_endpoint = "https://montanaflynn-geocoder.p.mashape.com/address" #https://www.mashape.com/montanaflynn/geocode-location-lookup
+  weather_endpoint = "https://community-open-weather-map.p.mashape.com/forecast" #https://www.mashape.com/community/open-weather-map
+  key = "eYFNue5wpWmsh1RU1VwmLaB24f20p1aq0tLjsnLg19vg0qvKLr"
+
+  coordinate_resp = Unirest.get(geocode_endpoint, headers:{
+    "X-Mashape-Key"=>key,
+  }, parameters: {
+    address: location
+  })
+
+  # puts coordinate_resp.body
+
+  latitude = coordinate_resp.body[:latitude]
+  longitude = coordinate_resp.body[:longitude]
+
+  weather_resp = Unirest.get(weather_endpoint, headers:{
+    "X-Mashape-Key"=>key
+    },
+    parameters: {
+      units:"imperial",
+      lang:"en",
+      lat: latitude,
+      lon: longitude,
+      q: location,
+      cnt:num_days,
+    })
+
+  war = weather_resp.body["list"][0]['main']
+
+  {"High"=>war["temp_max"], "Low"=>war['temp_min'], "Humidity"=>war['humidity']}
+
+
+
+end
+
+def assemble_stocks_quotes stocks
+  YahooFinance.quotes(stocks, [:last_trade_price, :change_percent_realtime, :change])
+end
+
+def assemble_date 
+  t = Time.new
+  days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+  months=["January","February","March","April","May","June","July","August","September","October","November","December"]
+  day_num = t.day
+  day = ""
+  case "#{day_num}"[-1,1]
+  when "1"
+    day = "#{day_num}st"
+  when "2"
+    day = "#{day_num}nd"
+  when "3"
+    day = "#{day_num}rd"
+  else 
+    day = "#{day_num}th"
+  end
+
+  "#{days[t.wday]}, #{months[t.month-1]} #{day}, #{t.year}"
+end
+
 
 @articles = DataGenerator.assemble_articles JSON_FILE
 Tilt.prefer Tilt::ErubisTemplate
 template = Tilt.new('./templates/article.html.erb', :escape_html => false)
 
+
+@stock_data = assemble_stocks_quotes ["NASDAQ","AAPL","IBM", "DJI"]
+@today = assemble_date
+@weather = assemble_weather
+
+puts @weather.inspect
 
 
 
@@ -102,7 +173,7 @@ until @articles.size == 0 do
   end
   direction = -direction
 end
-/
+=begin
   if left_more
 
       articles_right << new_article
@@ -115,23 +186,35 @@ end
       prev_abs = (new_article.content.size-prev_abs).abs
   end
 
-end/
+end
+=end
 
 
-html = template.render(self, :articles_left=>articles_left, :articles_right=>articles_right)
 
-File.new("htmlTest.html", "w+")
-htmlFile = File.open("htmlTest.html", "a+")
+
+html = template.render(self, 
+  :articles_left=>articles_left, 
+  :articles_right=>articles_right, 
+  :stock_data=>@stock_data,
+  :today=>@today,
+  :weather=>@weather
+  )
+
+
+File.new("toPDF.html", "w+")
+htmlFile = File.open("toPDF.html", "a+")
 htmlFile.puts html.chomp
 
 kit = PDFKit.new(html.encode("UTF-8"), :page_size => 'Letter')
-kit.stylesheets << './styles/app.css'
+  # kit.stylesheets << './styles/app.css'
 
 # Get an inline PDF
 pdf = kit.to_pdf
 
 # Save the PDF to a file
 file = kit.to_file('./Result.pdf')
+
+# system "rm toPDF.html"
 
 
 
