@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
-#gem 'rails-slim'
-#ggem 'pdfkit'
+gem 'pdfkit'
 gem 'mechanize'
 gem 'tilt'
 gem 'erubis'

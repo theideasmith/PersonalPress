@@ -80,8 +80,59 @@ end
 @articles = DataGenerator.assemble_articles JSON_FILE
 Tilt.prefer Tilt::ErubisTemplate
 template = Tilt.new('./templates/article.html.erb', :escape_html => false)
-html = template.render(self, :articles=>@articles)
+
+
+
+
+index = 0
+last_two_lengths = [@articles[0].content.size, @articles[1].content.size ]
+left_more = @articles[0].content.size > @articles[1].content.size ? true : false
+prev_abs = (last_two_lengths[0]-last_two_lengths[1]).abs
+
+articles_left = [] << @articles.shift
+articles_right = [] << @articles.shift
+direction = 1
+until @articles.size == 0 do 
+
+  new_article = @articles.shift
+  if direction > 0
+    articles_left << new_article
+  else
+    articles_right << new_article
+  end
+  direction = -direction
+end
+/
+  if left_more
+
+      articles_right << new_article
+    left_more = prev_abs > new_article.content.size ? false : false
+    prev_abs = (new_article.content.size-prev_abs).abs
+      
+  else 
+  articles_right << new_article
+      left_more = prev_abs > new_article.content.size ? true : false
+      prev_abs = (new_article.content.size-prev_abs).abs
+  end
+
+end/
+
+
+html = template.render(self, :articles_left=>articles_left, :articles_right=>articles_right)
 
 File.new("htmlTest.html", "w+")
 htmlFile = File.open("htmlTest.html", "a+")
 htmlFile.puts html.chomp
+
+kit = PDFKit.new(html.encode("UTF-8"), :page_size => 'Letter')
+kit.stylesheets << './styles/app.css'
+
+# Get an inline PDF
+pdf = kit.to_pdf
+
+# Save the PDF to a file
+file = kit.to_file('./Result.pdf')
+
+
+
+

@@ -6,64 +6,69 @@
 </head>
 <body>
 
-<div class ="content" id="content-left">
+<div class = "newspaper-body">
 
-<%articles[0,articles.size/2].each do |article|%>
-  <% puts "FLOAT is: #{article.float}" %>
+  <div class ="content" id="content-left">
 
-  <% if article.float =="left" %>
-      <div class="article article-floatleft">
-  <% else %>
-      <div class="article article-floatright">
-  <% end %> 
-    <img class="article-img" src="<%= "./images/#{article.title}.jpg" %>">
-    <h1 class="article-title"><%= article.title %></h1>
-    <div class="article-metadata">
-      <div class="article-metadata-box">
+  <%articles_right.each do |article|%>
+    <% puts "FLOAT is: #{article.float}" %>
+
+    <% if article.float =="left" %>
+        <div class="article article-floatleft">
+    <% else %>
+        <div class="article article-floatright">
+    <% end %> 
+      <img class="article-img" src="<%= article.img_url %>">
+      <h1 class="article-title"><%= article.title %></h1>
+      <div class="article-metadata">
+        <div class="article-metadata-box">
+        </div>
       </div>
+
+      <div class="article-textbox">
+          <p class="article-article">
+            <%= article.content %>
+          </p>
+      </div>
+            <div class="article-end"></div>
+
     </div>
 
-    <div class="article-textbox">
-        <p class="article-article">
-          <%= article.content %>
-        </p>
-    </div>
+  <% end %>
 
   </div>
-<% end %>
 
-</div>
+<div class="content-divider-center"></div>
 
-<div class="article-end"></div>
+  <div class ="content" id="content-right">
 
-<div class ="content" id="content-right">
+  <%articles_left.each do |article|%>
+    <% puts "FLOAT is: #{article.float}" %>
 
-<%articles[articles.size/2,articles.size].each do |article|%>
-  <% puts "FLOAT is: #{article.float}" %>
-
-  <% if article.float =="left" %>
-      <div class="article article-floatleft">
-  <% else %>
-      <div class="article article-floatright">
-  <% end %> 
-    <img class="article-img" src="<%= "./images/#{article.title}.jpg" %>">
-    <h1 class="article-title"><%= article.title %></h1>
-    <div class="article-metadata">
-      <div class="article-metadata-box">
+    <% if article.float =="left" %>
+        <div class="article article-floatleft">
+    <% else %>
+        <div class="article article-floatright">
+    <% end %> 
+      <img class="article-img" src="<%= article.img_url %>">
+      <h1 class="article-title"><%= article.title %></h1>
+      <div class="article-metadata">
+        <div class="article-metadata-box">
+        </div>
       </div>
-    </div>
 
-    <div class="article-textbox">
-        <p class="article-article">
-          <%= article.content %>
-        </p>
+      <div class="article-textbox">
+          <p class="article-article">
+            <%= article.content %>
+          </p>
+      </div>
+            <div class="article-end"></div>
+
     </div>
+  <% end %>
 
   </div>
-<% end %>
-
 </div>
-
 
 </body>
 </html>
