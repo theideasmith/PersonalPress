@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="./styles/app.css">
+
+</head>
+<body>
+
+<div class ="content" id="content-left">
+
+<%articles[0,articles.size/2].each do |article|%>
+  <% puts "FLOAT is: #{article.float}" %>
+
+  <% if article.float =="left" %>
+      <div class="article article-floatleft">
+  <% else %>
+      <div class="article article-floatright">
+  <% end %> 
+    <img class="article-img" src="<%= "./images/#{article.title}.jpg" %>">
+    <h1 class="article-title"><%= article.title %></h1>
+    <div class="article-metadata">
+      <div class="article-metadata-box">
+      </div>
+    </div>
+
+    <div class="article-textbox">
+        <p class="article-article">
+          <%= article.content %>
+        </p>
+    </div>
+
+  </div>
+<% end %>
+
+</div>
+
+<div class="article-end"></div>
+
+<div class ="content" id="content-right">
+
+<%articles[articles.size/2,articles.size].each do |article|%>
+  <% puts "FLOAT is: #{article.float}" %>
+
+  <% if article.float =="left" %>
+      <div class="article article-floatleft">
+  <% else %>
+      <div class="article article-floatright">
+  <% end %> 
+    <img class="article-img" src="<%= "./images/#{article.title}.jpg" %>">
+    <h1 class="article-title"><%= article.title %></h1>
+    <div class="article-metadata">
+      <div class="article-metadata-box">
+      </div>
+    </div>
+
+    <div class="article-textbox">
+        <p class="article-article">
+          <%= article.content %>
+        </p>
+    </div>
+
+  </div>
+<% end %>
+
+</div>
+
+
+</body>
+</html>

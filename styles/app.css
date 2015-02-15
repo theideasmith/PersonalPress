@@ -1,0 +1,41 @@
+.content {
+    display:inline-block;
+    width:45%;
+}
+#content-left {
+    float:left;
+}
+
+#content-right {
+    float:right;
+}
+
+
+.article {
+    display:inline-block;
+    width:100%;  
+    float:left;
+    padding-right:30px;
+    pading-left:30px;
+}
+
+.article-article{
+	color:grey;
+    text-align: justify;
+
+}
+
+
+
+.article-img {
+    width:100%;
+    height:auto;
+
+}
+.article-end {
+	margin-top:20px;
+	margin-bottom:20px;
+	height:100%;
+	border-radius:90px;
+	background-color:grey;
+}
