@@ -214,7 +214,7 @@ pdf = kit.to_pdf
 # Save the PDF to a file
 file = kit.to_file('./Result.pdf')
 
-# system "rm toPDF.html"
+system "rm toPDF.html"
 
 
 
