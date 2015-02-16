@@ -4,11 +4,13 @@
   <style type="text/css" >
   .newspaper-body {
 
+    font-family: "Times New Roman";
 
 }
 
 .newspaper-head {
-  height:100px;
+
+  height:200px;
   width:100%;
   margin-bottom: 30px;
   border-bottom: black 5px solid;
@@ -22,8 +24,9 @@
    font-weight: bold;
    font-size: .8em;
 }
-.head-top {
-  height:100px;
+
+.head {
+  height:100%;
   display: inline-block;
 }
 
@@ -31,8 +34,6 @@
   float:left;
   margin-left: 20px;
 }
-
-
 #headcenter {
   position: relative;
   margin-left:auto;
@@ -40,7 +41,8 @@
   display:block;
   width:100%;
   text-align:center;
-  /*margin-bottom: -100px;*/
+
+  margin-bottom: -100px;
 }
 
 #headright {
@@ -48,25 +50,9 @@
   margin-right: 20px;
 }
 
-#stocks {
-  margin-top:20px;
-  margin-bottom:20px;
-    height:30px;
-}
-#stock {
-  height:30px;
-  display: inline-block;
-  float:left;
-}
-#stock-data {
-  display: inline-block;
-}
-.first-article {
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
-    column-count: 2;
-    width:100%;
-    height:auto;    
+
+table {
+  border-spacing: 5px;
 }
 .content {
     width:45%;
@@ -130,38 +116,23 @@
 <body>
 
 <div class = "newspaper-head">
-  <div class = "head-top" id = "headcenter">
-    <p style = "font-size:5em; margin-bottom: -90px" id ="title">Personal Post</p>
+
+  <div class = "head" id = "headcenter">
+    <p style = "font-family:'Times New Roman';font-size:4em" id ="title">Personal Post</p>
   </div>
   <div class = "head" id ="headleft">
     <p id = "date" class="weather-key"><%= today %></p>
   </div>
 
   <div class = "head" id = "headright">
-    <p class="weather weather-key"> <%= weather['High'] %>&deg - <%= weather['Low'] %>&deg.</p>
-    <p class="weather weather-key"> Humidity: <%= weather['Humidity'] %> </p>
+    <p class="weather weather-key"> 17.98&deg - 17.75&deg</p>
+    <p class="weather weather-key"> Humidity: 100 </p> 
   </div>
-
-<!--   <div class="stocks">
-    <% stock_data.each do |stock| %>
-      <div class="stock">
-        <p class="stock-data" style="font-weight:bold"><%= stock.symbol %></p>
-        <% if stock.change.to_i > 0 %>
-          <div class="stock-data stock-change-up"><%= stock.change %></div>
-        <% else %>
-          <div class="stock-data stock-change-down"><%= stock.change %></div>
-        <% end %>
-      </div>
-    <% end %>
-  </div> -->
 </div>
 
 
 
 <div class = "newspaper-body">
-
-
-
   <div class ="content" id="content-left">
 
   <%articles_right.each do |article|%>

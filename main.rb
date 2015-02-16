@@ -75,7 +75,7 @@ class DataGenerator
   end
 end
 
-
+=begin 
 def assemble_weather 
 
 
@@ -120,7 +120,7 @@ end
 def assemble_stocks_quotes stocks
   YahooFinance.quotes(stocks, [:last_trade_price, :change_percent_realtime, :change])
 end
-
+=end
 def assemble_date 
   t = Time.new
   days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
@@ -146,14 +146,9 @@ end
 Tilt.prefer Tilt::ErubisTemplate
 template = Tilt.new('./templates/article.html.erb', :escape_html => false)
 
-
-@stock_data = assemble_stocks_quotes ["MSFT",  "HPQ","AAPL","IBM", "DJI"]
-puts @stock_data
+# @stock_data = assemble_stocks_quotes ["MSFT",  "HPQ","AAPL","IBM", "DJI"]
 @today = assemble_date
-@weather = assemble_weather
-puts @weather.inspect
-
-
+# @weather = assemble_weather
 
 index = 0
 last_two_lengths = [@articles[0].content.size, @articles[1].content.size ]
@@ -195,15 +190,14 @@ end
 html = template.render(self, 
   :articles_left=>articles_left, 
   :articles_right=>articles_right, 
-  :stock_data=>@stock_data,
-  :today=>@today,
-  :weather=>@weather
+  :today=>@today
   )
 
 
 File.new("toPDF.html", "w+")
 htmlFile = File.open("toPDF.html", "a+")
 htmlFile.puts html.chomp
+
 
 kit = PDFKit.new(html.encode("UTF-8"), :page_size => 'Letter')
   # kit.stylesheets << './styles/app.css'
@@ -213,9 +207,5 @@ pdf = kit.to_pdf
 
 # Save the PDF to a file
 file = kit.to_file('./Result.pdf')
-
-# system "rm toPDF.html"
-
-
-
+system ('open Result.pdf')
 
