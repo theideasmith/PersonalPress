@@ -1,4 +1,5 @@
 import urllib2
+import urllib
 import goose
 import cookielib
 import requests
@@ -64,7 +65,7 @@ def make_JSON_file(data):
              "SOURCE":source,
              "TITLE":article_content[2].encode('ascii', 'ignore'),
              "CONTENT":article_content[3].encode('ascii', 'ignore'),
-             "IMG_URL":article_content[4],
+             "IMG_URL":urllib.unquote(article_content[4]).encode('ascii', 'ignore'),
              "AUTHOR":article_content[5].encode('ascii', 'ignore')}
         result.append(d)
     with open('information.json','wb') as info:
