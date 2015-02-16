@@ -41,6 +41,7 @@ build/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.pyc
 
 # C extensions
 *.so
@@ -95,6 +96,7 @@ target/
 
 
 ### Node ###
+node_modules/
 # Logs
 logs
 *.log
